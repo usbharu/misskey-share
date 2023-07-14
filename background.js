@@ -26,19 +26,26 @@ chrome.contextMenus.onClicked.addListener(item => {
 })
 
 function page(item) {
-    const s = encodeURIComponent(`${item.pageUrl}`);
-    chrome.windows.create({
-        url: `https://${domain}/share?zen&text=${s}`,
-        width: 300,
-        height: 400
-    })
+    chrome.tabs.query({active: true, currentWindow: true}).then((tab) => {
+        const s = encodeURIComponent(`${tab[0].title}\n${item.pageUrl}`);
+        chrome.windows.create({
+            url: `https://${domain}/share?zen&text=${s}`,
+            width: 500,
+            height: 400,
+            focused: true,
+            type: 'popup'
+        })
+    });
+
 }
 
 function quote(item) {
     const s = encodeURIComponent(`${item.pageUrl}\n> ${item.selectionText}`);
     chrome.windows.create({
         url: `https://${domain}/share?zen&text=${s}`,
-        width: 300,
-        height: 400
+        width: 500,
+        height: 400,
+        focused: true,
+        type: 'popup'
     })
 }
