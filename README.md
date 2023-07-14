@@ -1,0 +1,4 @@
+# misskey-share
+Misskey系のSNSに引用したりしながらURL貼れる
+
+background.jsのdomainの値を変更して使ってください
